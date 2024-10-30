@@ -1,19 +1,59 @@
 import ProfileSection from './ProfileSection.js';
 import Gallery from './Gallery.js';
-import EditProfilePopup from './EditProfilePopup.js';
-import AddCardPopup from './AddCardPopup.js';
+// import EditProfilePopup from './EditProfilePopup.js';
+// import AddCardPopup from './AddCardPopup.js';
 import ImagePopup from './ImagePopup.js';
-import PopupWithConfirmation from './PopupWithConfirmation.js';
-import UpdateProfilePicturePopup from './UpdateProfilePicturePopup.js';
+// import PopupWithConfirmation from './PopupWithConfirmation.js';
+// import UpdateProfilePicturePopup from './UpdateProfilePicturePopup.js';
 import PopupWithForm from './PopupWithForm.js';
-import { useEffect } from 'react';
+import {api} from '../utils/api.js'
+import { useState, useEffect } from 'react';
 
 export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onClose,onCardClick, isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen}) {
   
+  const [userName, setUserName] = useState("") 
+  const [userDescription, setUserDescription] = useState("") 
+  const [userAvatar, setUserAvatar] = useState("")
+  const [cards, setCards] = useState([])
+
+  useEffect(()=> {
+    api
+      .getUser()
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .then((userObject) => {
+        setUserName(userObject.name)
+        setUserDescription(userObject.about)
+        setUserAvatar(userObject.avatar)
+      }).catch((error) => {
+        console.log(error);
+      });
+
+      api
+      .getInitialCards()
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .then((cardsList) => {
+        console.log(cardsList);
+        setCards(cardsList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [])
+
   return (
     <main className='content'>
-      <ProfileSection handleEditAvatarClick={onEditAvatarClick} handleEditProfileClick={onEditProfileClick} handleAddPlaceClick={onAddPlaceClick}/>
-      <Gallery />
+      <ProfileSection handleEditAvatarClick={onEditAvatarClick} handleEditProfileClick={onEditProfileClick} handleAddPlaceClick={onAddPlaceClick} userName={userName} userDescription={userDescription} userAvatar={userAvatar}/>
+      <Gallery cards={cards}/>
       <PopupWithForm popupName="edit-profile-popup" title="Editar perfil" isOpen={isEditProfilePopupOpen} onClose={onClose}>
         <div className="popup__inputs">
           <input
