@@ -9,7 +9,7 @@ import PopupWithForm from './PopupWithForm.js';
 import {api} from '../utils/api.js'
 import { useState, useEffect } from 'react';
 
-export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onClose,onCardClick, isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen}) {
+export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onClose,onCardClick, selectedCard, isImagePopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen}) {
   
   const [userName, setUserName] = useState("") 
   const [userDescription, setUserDescription] = useState("") 
@@ -47,13 +47,14 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
       })
       .catch((error) => {
         console.log(error);
+        setCards([]);
       });
   }, [])
 
   return (
     <main className='content'>
       <ProfileSection handleEditAvatarClick={onEditAvatarClick} handleEditProfileClick={onEditProfileClick} handleAddPlaceClick={onAddPlaceClick} userName={userName} userDescription={userDescription} userAvatar={userAvatar}/>
-      <Gallery cards={cards}/>
+      <Gallery cards={cards} onCardClick={onCardClick}/>
       <PopupWithForm popupName="edit-profile-popup" title="Editar perfil" isOpen={isEditProfilePopupOpen} onClose={onClose}>
         <div className="popup__inputs">
           <input
@@ -118,7 +119,7 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
 					</button>
       </PopupWithForm>
       {/* <AddCardPopup /> */}
-      <ImagePopup />
+      <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={onClose}/>
       <PopupWithForm popupName="popup-with-confirmation" title="Tem certeza?">
         <button
 					className="popup__submit-button popup-with-confirmation__submit-button"
