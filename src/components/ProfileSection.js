@@ -6,7 +6,7 @@ import addCardIcon from '../images/plus-sign.png';
 export default function ProfileSection({handleEditAvatarClick, handleEditProfileClick, handleAddPlaceClick}) {
     return (
         <section className="profile">
-          <div className="profile__picture-container">
+          <div className="profile__picture-container" onClick={handleEditAvatarClick}>
             <img
               className="profile__picture"
               src=""
@@ -16,7 +16,6 @@ export default function ProfileSection({handleEditAvatarClick, handleEditProfile
               className="profile__picture-overlay-edit-icon"
               src={editProfilePictureIcon}
               alt="Ícone de editar foto de perfil."
-              onClick={handleEditAvatarClick}
             />
           </div>
           <div className="profile__information">
@@ -31,12 +30,11 @@ export default function ProfileSection({handleEditAvatarClick, handleEditProfile
             </div>
             <p className="profile__description"></p>
           </div>
-          <button className="profile__add-button">
+          <button className="profile__add-button" onClick={handleAddPlaceClick}>
             <img
               className="profile__add-button-plus-sign"
               src={addCardIcon}
               alt="Ícone de adicionar postagem."
-              onClick={handleAddPlaceClick}
             />
           </button>
         </section>

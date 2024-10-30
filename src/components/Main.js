@@ -8,16 +8,13 @@ import UpdateProfilePicturePopup from './UpdateProfilePicturePopup.js';
 import PopupWithForm from './PopupWithForm.js';
 import { useEffect } from 'react';
 
-export default function Main() {
-  
-
-  
+export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onClose,onCardClick, isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen}) {
   
   return (
     <main className='content'>
-      <ProfileSection handleEditAvatarClick={handleEditAvatarClick} handleEditProfileClick={handleEditProfileClick} handleAddPlaceClick={handleAddPlaceClick}/>
+      <ProfileSection handleEditAvatarClick={onEditAvatarClick} handleEditProfileClick={onEditProfileClick} handleAddPlaceClick={onAddPlaceClick}/>
       <Gallery />
-      <PopupWithForm popupName="edit-profile-popup" title="Editar perfil">
+      <PopupWithForm popupName="edit-profile-popup" title="Editar perfil" isOpen={isEditProfilePopupOpen} onClose={onClose}>
         <div className="popup__inputs">
           <input
             className="popup__input edit-profile-popup__input_name"
@@ -50,7 +47,7 @@ export default function Main() {
         </div>
       </PopupWithForm>
       {/* <EditProfilePopup /> */}
-      <PopupWithForm popupName="add-card-popup" title="Novo local">
+      <PopupWithForm popupName="add-card-popup" title="Novo local" isOpen={isAddPlacePopupOpen} onClose={onClose}>
       <div className="popup__inputs">
 						<input
 							className="popup__input add-card-popup__input_title"
@@ -91,7 +88,7 @@ export default function Main() {
 				</button>
       </PopupWithForm>
       {/* <PopupWithConfirmation /> */}
-      <PopupWithForm popupName="update-profile-picture-popup" title="Alterar a foto do perfil">
+      <PopupWithForm popupName="update-profile-picture-popup" title="Alterar a foto do perfil" isOpen={isEditAvatarPopupOpen} onClose={onClose}>
         <div className="popup__inputs">
           <input
             className="popup__input update-profile-picture-popup__input_picture"
