@@ -1,10 +1,6 @@
 import ProfileSection from './ProfileSection.js';
 import Gallery from './Gallery.js';
-// import EditProfilePopup from './EditProfilePopup.js';
-// import AddCardPopup from './AddCardPopup.js';
 import ImagePopup from './ImagePopup.js';
-// import PopupWithConfirmation from './PopupWithConfirmation.js';
-// import UpdateProfilePicturePopup from './UpdateProfilePicturePopup.js';
 import PopupWithForm from './PopupWithForm.js';
 import {api} from '../utils/api.js'
 import { useState, useEffect } from 'react';
@@ -54,7 +50,9 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
   return (
     <main className='content'>
       <ProfileSection handleEditAvatarClick={onEditAvatarClick} handleEditProfileClick={onEditProfileClick} handleAddPlaceClick={onAddPlaceClick} userName={userName} userDescription={userDescription} userAvatar={userAvatar}/>
+
       <Gallery cards={cards} onCardClick={onCardClick}/>
+
       <PopupWithForm popupName="edit-profile-popup" title="Editar perfil" isOpen={isEditProfilePopupOpen} onClose={onClose}>
         <div className="popup__inputs">
           <input
@@ -87,7 +85,7 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
           </button>
         </div>
       </PopupWithForm>
-      {/* <EditProfilePopup /> */}
+
       <PopupWithForm popupName="add-card-popup" title="Novo local" isOpen={isAddPlacePopupOpen} onClose={onClose}>
       <div className="popup__inputs">
 						<input
@@ -118,8 +116,9 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
 						Criar
 					</button>
       </PopupWithForm>
-      {/* <AddCardPopup /> */}
+
       <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={onClose}/>
+
       <PopupWithForm popupName="popup-with-confirmation" title="Tem certeza?">
         <button
 					className="popup__submit-button popup-with-confirmation__submit-button"
@@ -128,7 +127,7 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
 					Sim
 				</button>
       </PopupWithForm>
-      {/* <PopupWithConfirmation /> */}
+      
       <PopupWithForm popupName="update-profile-picture-popup" title="Alterar a foto do perfil" isOpen={isEditAvatarPopupOpen} onClose={onClose}>
         <div className="popup__inputs">
           <input
@@ -148,7 +147,6 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
           Salvar
         </button>
       </PopupWithForm>
-      {/* <UpdateProfilePicturePopup /> */}
     </main>
   )
 }
