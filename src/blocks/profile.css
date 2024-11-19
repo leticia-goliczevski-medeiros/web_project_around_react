@@ -12,11 +12,8 @@
   width: 120px;
   height: 120px;
   margin-right: 30px;
+  object-fit: cover;
 }
-/* .profile__picture:hover {
-  opacity: 0.6;
-  cursor: pointer;
-} */
 .profile__picture-container:hover .profile__picture {
   opacity: 0.6;
   cursor: pointer;

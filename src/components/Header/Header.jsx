@@ -1,5 +1,5 @@
-import '../blocks/header.css'
-import logo from '../images/around.png';
+import '../../blocks/header.css'
+import logo from '../../images/around.png';
 
 export default function Header() {
   return (

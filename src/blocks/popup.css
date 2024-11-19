@@ -1,5 +1,5 @@
 .popup {
-  display: none;
+  display: block;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -9,9 +9,9 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.popup_popup_opened {
+/* .popup_popup_opened {
   display: block;
-}
+} */
 .popup__container {
   position: fixed;
   top: 50%;

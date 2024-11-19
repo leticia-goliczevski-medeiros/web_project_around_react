@@ -20,10 +20,10 @@ export default function Card({card, onCardClick}) {
         <div className="gallery__like-info">
           <img
             className="gallery__heart-icon"
-            src={card.likes.length? heartIconAcive: heartIcon}
+            src={card.isLiked? heartIconAcive: heartIcon}
             alt="Ícone de coração."
           />
-          <p className="gallery__like-count">{card.likes.length}</p>
+          {/* <p className="gallery__like-count">{card.likes.length}</p> */}
         </div>
       </div>
     </li>

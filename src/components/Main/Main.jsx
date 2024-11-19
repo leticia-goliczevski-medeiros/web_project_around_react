@@ -1,8 +1,19 @@
-import ProfileSection from './ProfileSection.jsx';
-import Gallery from './Gallery.jsx';
-import ImagePopup from './ImagePopup.jsx';
-import PopupWithForm from './PopupWithForm.jsx';
-import {api} from '../utils/api.js'
+//import ProfileSection from '../ProfileSection.jsx';
+
+import '../../blocks/profile.css';
+import editProfilePictureIcon from '../../images/edit-profile-picture-icon.png';
+import editProfileIcon from '../../images/edit-button.png';
+import addCardIcon from '../../images/plus-sign.png';
+
+//import Gallery from '../Gallery.jsx';
+import Card from './components/Card/Card.jsx'
+import NewCard from './components/Popup/components/NewCard/NewCard.jsx'
+import EditProfile from './components/Popup/components/EditProfile/EditProfile.jsx'
+import EditAvatar from './components/Popup/components/EditAvatar/EditAvatar.jsx'
+import ImagePopup from '../ImagePopup.jsx';
+import PopupWithForm from '../PopupWithForm.jsx';
+import Popup from './components/Popup/Popup.jsx'
+import {api} from '../../utils/api.js'
 import { useState, useEffect } from 'react';
 
 export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarClick, onClose,onCardClick, selectedCard, isImagePopupOpen, isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen}) {
@@ -11,6 +22,18 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
   const [userDescription, setUserDescription] = useState("") 
   const [userAvatar, setUserAvatar] = useState("")
   const [cards, setCards] = useState([])
+
+  const [popup, setPopup] = useState(null);
+  const newCardPopup = { title: "New card", children: <NewCard /> };
+  const editAvatarPopup = { title: "Edit avatar", children: <EditAvatar /> };
+  const editProfilePopup = { title: "Edit profile", children: <EditProfile /> };
+
+  function handleOpenPopup(popup) {
+    setPopup(popup);
+  }
+  function handleClosePopup() {
+    setPopup(null);
+  }
 
   useEffect(()=> {
     api
@@ -49,11 +72,52 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
 
   return (
     <main className='content'>
-      <ProfileSection handleEditAvatarClick={onEditAvatarClick} handleEditProfileClick={onEditProfileClick} handleAddPlaceClick={onAddPlaceClick} userName={userName} userDescription={userDescription} userAvatar={userAvatar}/>
+      <section className="profile">
+          <div className="profile__picture-container" onClick={() => handleOpenPopup(editAvatarPopup)}>
+            <img
+              className="profile__picture"
+              src={userAvatar}
+              alt="Foto de perfil do usuário."
+            />
+            <img
+              className="profile__picture-overlay-edit-icon"
+              src={editProfilePictureIcon}
+              alt="Ícone de editar foto de perfil."
+            />
+          </div>
+          <div className="profile__information">
+            <div className="profile__name-and-icon">
+              <h1 className="profile__name">{userName}</h1>
+              <img
+                className="profile__edit-icon"
+                src={editProfileIcon}
+                alt="Ícone de editar informações do perfil."
+                onClick={() => handleOpenPopup(editProfilePopup)}
+              />
+            </div>
+            <p className="profile__description">{userDescription}</p>
+          </div>
+          <button className="profile__add-button" onClick={() => handleOpenPopup(newCardPopup)}>
+            <img
+              className="profile__add-button-plus-sign"
+              src={addCardIcon}
+              alt="Ícone de adicionar postagem."
+            />
+          </button>
+        </section>
+      {/* <ProfileSection handleEditAvatarClick={onEditAvatarClick} handleEditProfileClick={onEditProfileClick} handleAddPlaceClick={onAddPlaceClick} userName={userName} userDescription={userDescription} userAvatar={userAvatar}/> */}
 
-      <Gallery cards={cards} onCardClick={onCardClick}/>
+      {/* <Gallery cards={cards} onCardClick={onCardClick}/> */}
+      <section className="gallery">
+      <ul className="gallery__cards">
+      {cards.map(card=> (
+        <Card card={card} key={card._id} handleOpenPopup={handleOpenPopup}/>
+      ))}
 
-      <PopupWithForm popupName="edit-profile-popup" title="Editar perfil" isOpen={isEditProfilePopupOpen} onClose={onClose}>
+      </ul>
+    </section>
+
+      {/* <PopupWithForm popupName="edit-profile-popup" title="Editar perfil" isOpen={isEditProfilePopupOpen} onClose={onClose}>
         <div className="popup__inputs">
           <input
             className="popup__input edit-profile-popup__input_name"
@@ -84,8 +148,8 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
             Salvar
           </button>
         </div>
-      </PopupWithForm>
-
+      </PopupWithForm> */}
+{/* 
       <PopupWithForm popupName="add-card-popup" title="Novo local" isOpen={isAddPlacePopupOpen} onClose={onClose}>
       <div className="popup__inputs">
 						<input
@@ -115,20 +179,20 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
 					>
 						Criar
 					</button>
-      </PopupWithForm>
+      </PopupWithForm> */}
 
-      <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={onClose}/>
+      {/* <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={onClose}/> */}
 
-      <PopupWithForm popupName="popup-with-confirmation" title="Tem certeza?">
+      {/* <PopupWithForm popupName="popup-with-confirmation" title="Tem certeza?">
         <button
 					className="popup__submit-button popup-with-confirmation__submit-button"
 					type="submit"
 				>
 					Sim
 				</button>
-      </PopupWithForm>
+      </PopupWithForm> */}
       
-      <PopupWithForm popupName="update-profile-picture-popup" title="Alterar a foto do perfil" isOpen={isEditAvatarPopupOpen} onClose={onClose}>
+      {/* <PopupWithForm popupName="update-profile-picture-popup" title="Alterar a foto do perfil" isOpen={isEditAvatarPopupOpen} onClose={onClose}>
         <div className="popup__inputs">
           <input
             className="popup__input update-profile-picture-popup__input_picture"
@@ -146,7 +210,13 @@ export default function Main({onEditProfileClick, onAddPlaceClick, onEditAvatarC
         >
           Salvar
         </button>
-      </PopupWithForm>
+      </PopupWithForm> */}
+
+      {popup && (
+        <Popup onClose={handleClosePopup} title={popup.title}>
+          {popup.children}
+        </Popup>
+      )}
     </main>
   )
 }
