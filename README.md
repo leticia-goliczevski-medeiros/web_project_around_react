@@ -1,8 +1,9 @@
-# React + Vite
+# Around the U.S. com React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Nome do projeto: Around the U.S. com React
 
-Currently, two official plugins are available:
+Descrição do projeto: É uma página interativa, onde o usuário pode adicionar, remover ou curtir fotos. Ele também pode criar um perfil com informações básicas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Tecnologias utilizadas: Toda a parte de estilos foi escrita em CSS puro. O projeto foi criado com o Vite e a biblioteca React foi utilizada na renderização dos componentes e controle de estado.
+
+Possíveis melhorias: Validação dos formulários, popups de confirmação de exclusão de cartão, interação entre usuários.
