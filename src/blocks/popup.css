@@ -9,9 +9,6 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
-/* .popup_popup_opened {
-  display: block;
-} */
 .popup__container {
   position: fixed;
   top: 50%;
