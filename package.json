@@ -1,5 +1,6 @@
 {
   "name": "sprint13-around-react",
+  "homepage": "https://leticia-goliczevski-medeiros.github.io/web_project_around_react/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +12,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://leticia-goliczevski-medeiros.github.io/web_project_around_react",
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
