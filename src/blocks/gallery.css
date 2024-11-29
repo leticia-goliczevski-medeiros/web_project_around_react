@@ -1,6 +1,7 @@
 .gallery {
   padding-top: 50px;
   max-width: 880px;
+  min-height: 372px;
   margin: 0 auto;
 }
 .gallery__cards {
