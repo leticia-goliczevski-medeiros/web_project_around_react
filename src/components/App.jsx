@@ -153,7 +153,16 @@ function App() {
       <div className="App">
         <div className="page">
           <Header />
-          <Main onOpenPopup={handleOpenPopup} onClosePopup={handleClosePopup} popup={popup} newCardPopup={newCardPopup} editAvatarPopup={editAvatarPopup} editProfilePopup={editProfilePopup} cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
+          <Main 
+          onOpenPopup={handleOpenPopup} 
+          onClosePopup={handleClosePopup} 
+          popup={popup} 
+          newCardPopup={newCardPopup} 
+          editAvatarPopup={editAvatarPopup} 
+          editProfilePopup={editProfilePopup} 
+          cards={cards} 
+          onCardLike={handleCardLike} 
+          onCardDelete={handleCardDelete} />
           <Footer />
         </div>
       </div>
