@@ -91,8 +91,16 @@ class API {
 }
 
 export const api = new API({
-  makeRequest: (endpoint, requestOptions)=> {
-    return fetch(`https://around-api.pt-br.tripleten-services.com/v1/${endpoint}`, requestOptions)
+  makeRequest: async (endpoint, requestOptions)=> {
+    try {
+      const res = await fetch(`https://around-api.pt-br.tripleten-services.com/v1/${endpoint}`, requestOptions);
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    } catch (error) {
+      console.log(error);
+    }
   },
   headers: {
     authorization: "46bfb3be-dbce-4d6f-9db9-127f775222d9",

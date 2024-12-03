@@ -22,33 +22,18 @@ function App() {
   }
 
   useEffect(()=> {
-    api
-      .getUser()
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
+    api.getUser()
       .then((userObject) => {
         setCurrentUser(userObject)
-      }).catch((error) => {
-        console.log(error);
-      });
+      })
   }, [])
 
   function handleUpdateUser(user) {
-    api.saveProfileInfo(user).then((res)=> {if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Error: ${res.status}`);}).then((userObject)=> setCurrentUser(userObject))
+    api.saveProfileInfo(user).then((userObject)=> setCurrentUser(userObject))
   };
 
   function handleUpdateAvatar(avatarLink) {
-    api.updateProfilePicture(avatarLink).then((res)=> {if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Error: ${res.status}`);}).then((userObject)=> setCurrentUser(userObject))
+    api.updateProfilePicture(avatarLink).then((userObject)=> setCurrentUser(userObject))
   };
 
   const editProfilePopup = { title: "Edit profile", children: <EditProfile onClosePopup={handleClosePopup}/> };
@@ -60,71 +45,37 @@ function App() {
     if (card.isLiked) {
       api
       .removeCardLike(card._id)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
       .then((updatedCard) => {
         setCards((cards) => {
           return cards.map((currentCard) => {
             return currentCard._id === card._id ? updatedCard : currentCard
           })
         })
-    })
-      .catch((error) => {
-        console.log(error);
-      });
+      })
     } else {
       api
       .addCardLike(card._id)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
       .then((updatedCard) => {
         setCards((cards) => {
           return cards.map((currentCard) => {
             return currentCard._id === card._id ? updatedCard : currentCard
           })
         })
-    })
-      .catch((error) => {
-        console.log(error);
       })
     }
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    })
+    api.deleteCard(card._id)
     .then(() => {
       setCards((state) => state.filter((currentCard) => currentCard._id !== card._id));
     })
-    .catch((error) => {
-      console.log(error);
-    });
   }
 
   function handleAddPlaceSubmit(name, link) {
-    api.addCard(name, link).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    })
+    api.addCard(name, link)
     .then((addedCard) => {
       setCards([addedCard, ...cards])
-    })
-    .catch((error) => {
-      console.log(error);
     })
   }
 
@@ -133,19 +84,9 @@ function App() {
   useEffect(()=> {
       api
       .getInitialCards()
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
       .then((cardsList) => {
         setCards(cardsList);
       })
-      .catch((error) => {
-        console.log(error);
-        setCards([]);
-      });
   }, [])
   
   return (
